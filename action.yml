@@ -11,6 +11,9 @@ inputs:
   path:
     description: 'path to unzip it default is artifact name'
     required: false
+  run_id:
+    description: 'set github.event.workflow_run.id here'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
