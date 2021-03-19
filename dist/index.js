@@ -68,7 +68,7 @@ function run() {
             // set outputs
             const fileNames = fs.readdirSync(path);
             for (const fileName of fileNames) {
-                core.setOutput(fileName, fs.readFileSync(`${path}/${fileName}`));
+                core.setOutput(fileName, fs.readFileSync(`${path}/${fileName}`).toString());
                 yield exec_1.exec('rm', [`${path}/${fileName}`]);
             }
             // delete artifact

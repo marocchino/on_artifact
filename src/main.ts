@@ -35,7 +35,10 @@ async function run(): Promise<void> {
     // set outputs
     const fileNames = fs.readdirSync(path)
     for (const fileName of fileNames) {
-      core.setOutput(fileName, fs.readFileSync(`${path}/${fileName}`))
+      core.setOutput(
+        fileName,
+        fs.readFileSync(`${path}/${fileName}`).toString()
+      )
       await exec('rm', [`${path}/${fileName}`])
     }
 
