@@ -3,16 +3,16 @@ description: 'Optimized for workflow_on. Download artifact and set as output the
 author: 'marocchino'
 inputs:
   GITHUB_TOKEN:
-    description: 'set secrets.GITHUB_TOKEN here'
+    description: 'set secrets.GITHUB_TOKEN here.'
     required: true
   name:
-    description: 'artifact name'
+    description: 'artifact name.'
     required: true
   path:
-    description: 'path to unzip it default is artifact name'
+    description: 'path to unzip it. default is artifact name.'
     required: false
   run_id:
-    description: 'set github.event.workflow_run.id here'
+    description: 'set github.event.workflow_run.id here.'
     required: true
 runs:
   using: 'node12'

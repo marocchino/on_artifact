@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
+  "name": "on_artifact",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Optimized for workflow_on. Download artifact and set as output then clear it",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
