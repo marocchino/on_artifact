@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.event == 'pull_request' }}
     steps:
+      - uses: actions/checkout@v2
       - name: on artifact
         id: artifact
         uses: ./
