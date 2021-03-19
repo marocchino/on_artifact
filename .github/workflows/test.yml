@@ -18,6 +18,7 @@ jobs:
           echo ${{ github.event.number }} | tee ./pr/number
           npm run all | tee ./pr/all_result
       - uses: actions/upload-artifact@v2
+        if: github.event_name == 'pull_request'
         with:
           name: all
           path: pr/
