@@ -8,12 +8,13 @@ async function run(): Promise<void> {
     const token = core.getInput('GITHUB_TOKEN')
     const name: string = core.getInput('name')
     const path: string = core.getInput('path') || name
+    const runId = Number(core.getInput('run_id'))
     const octokit = getOctokit(token, {})
 
     const artifacts = await octokit.actions.listWorkflowRunArtifacts({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      run_id: octokit.event.workflow_run.id
+      run_id: runId
     })
     const matchArtifact = artifacts.data.artifacts.filter(
       artifact => artifact.name === name

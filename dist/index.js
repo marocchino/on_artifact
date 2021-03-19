@@ -46,11 +46,12 @@ function run() {
             const token = core.getInput('GITHUB_TOKEN');
             const name = core.getInput('name');
             const path = core.getInput('path') || name;
+            const runId = Number(core.getInput('run_id'));
             const octokit = github_1.getOctokit(token, {});
             const artifacts = yield octokit.actions.listWorkflowRunArtifacts({
                 owner: github_1.context.repo.owner,
                 repo: github_1.context.repo.repo,
-                run_id: octokit.event.workflow_run.id
+                run_id: runId
             });
             const matchArtifact = artifacts.data.artifacts.filter(artifact => artifact.name === name)[0];
             const download = yield octokit.actions.downloadArtifact({
