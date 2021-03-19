@@ -1,16 +1,49 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {context, getOctokit} from '@actions/github'
+import {exec} from '@actions/exec'
+import * as fs from 'fs'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const token = core.getInput('GITHUB_TOKEN')
+    const name: string = core.getInput('name')
+    const path: string = core.getInput('path') || name
+    const octokit = getOctokit(token, {})
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const artifacts = await octokit.actions.listWorkflowRunArtifacts({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      run_id: octokit.event.workflow_run.id
+    })
+    const matchArtifact = artifacts.data.artifacts.filter(
+      artifact => artifact.name === name
+    )[0]
+    const download = await octokit.actions.downloadArtifact({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      artifact_id: matchArtifact.id,
+      archive_format: 'zip'
+    })
+    const filePath = `${octokit.workspace}/${name}.zip`
+    fs.writeFileSync(filePath, Buffer.from(download.data as string))
 
-    core.setOutput('time', new Date().toTimeString())
+    // unzip
+    await exec('unzip', [filePath, '-d', path])
+    await exec('rm', [filePath])
+
+    // set outputs
+    const fileNames = fs.readdirSync(path)
+    for (const fileName of fileNames) {
+      core.setOutput(fileName, fs.readFileSync(`${path}/${fileName}`))
+      await exec('rm', [`${path}/${fileName}`])
+    }
+
+    // delete artifact
+    await octokit.actions.deleteArtifact({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      artifact_id: matchArtifact.id
+    })
   } catch (error) {
     core.setFailed(error.message)
   }

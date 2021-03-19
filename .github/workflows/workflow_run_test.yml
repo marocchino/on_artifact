@@ -1,0 +1,33 @@
+name: Comment on PR
+
+# read-write repo token
+# access to secrets
+on:
+  workflow_run:
+    workflows:
+      - build
+    branches:
+      - main
+    types:
+      - completed
+
+jobs:
+  exam:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.event == 'pull_request' }}
+    steps:
+      - name: on artifact
+        id: artifact
+        uses: ./
+        with:
+          name: all
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: All
+          number: ${{ steps.artifact.outputs.number }}
+          message: |
+            ```
+            ${{ steps.artifact.outputs.result }}
+            ```
