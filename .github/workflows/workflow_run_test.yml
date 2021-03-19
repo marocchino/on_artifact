@@ -6,8 +6,6 @@ on:
   workflow_run:
     workflows:
       - build
-    branches:
-      - main
     types:
       - completed
 
@@ -29,5 +27,5 @@ jobs:
           number: ${{ steps.artifact.outputs.number }}
           message: |
             ```
-            ${{ steps.artifact.outputs.result }}
+            ${{ steps.artifact.outputs.all_result }}
             ```
