@@ -60,7 +60,7 @@ function run() {
                 artifact_id: matchArtifact.id,
                 archive_format: 'zip'
             });
-            const filePath = `${octokit.workspace}/${name}.zip`;
+            const filePath = `${name}.zip`;
             fs.writeFileSync(filePath, Buffer.from(download.data));
             // unzip
             yield exec_1.exec('unzip', [filePath, '-d', path]);

@@ -25,7 +25,7 @@ async function run(): Promise<void> {
       artifact_id: matchArtifact.id,
       archive_format: 'zip'
     })
-    const filePath = `${octokit.workspace}/${name}.zip`
+    const filePath = `${name}.zip`
     fs.writeFileSync(filePath, Buffer.from(download.data as string))
 
     // unzip
