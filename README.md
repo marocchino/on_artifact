@@ -4,7 +4,7 @@
 
 # on_artifact
 
-Optimized for workflow_on. Download artifact and set as output then clear it
+Optimized for workflow_run. Download artifact and set as output then clear it
 
 ## Usage
 

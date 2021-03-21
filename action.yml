@@ -1,5 +1,5 @@
 name: 'on_artifact'
-description: 'Optimized for workflow_on. Download artifact and set as output then clear it'
+description: 'Optimized for workflow_run. Download artifact and set as output then clear it'
 author: 'marocchino'
 inputs:
   GITHUB_TOKEN:
