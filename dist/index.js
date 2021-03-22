@@ -43,10 +43,10 @@ const fs = __importStar(__webpack_require__(5747));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const token = core.getInput('GITHUB_TOKEN');
-            const name = core.getInput('name');
-            const path = core.getInput('path') || name;
-            const runId = Number(core.getInput('run_id'));
+            const token = core.getInput('GITHUB_TOKEN', { required: true });
+            const name = core.getInput('name', { required: true });
+            const path = core.getInput('path', { required: false }) || name;
+            const runId = Number(core.getInput('run_id', { required: true }));
             const octokit = github_1.getOctokit(token, {});
             const artifacts = yield octokit.actions.listWorkflowRunArtifacts({
                 owner: github_1.context.repo.owner,
