@@ -5,10 +5,10 @@ import * as fs from 'fs'
 
 async function run(): Promise<void> {
   try {
-    const token = core.getInput('GITHUB_TOKEN')
-    const name: string = core.getInput('name')
-    const path: string = core.getInput('path') || name
-    const runId = Number(core.getInput('run_id'))
+    const token = core.getInput('GITHUB_TOKEN', {required: true})
+    const name = core.getInput('name', {required: true})
+    const path = core.getInput('path', {required: false}) || name
+    const runId = Number(core.getInput('run_id', {required: true}))
     const octokit = getOctokit(token, {})
 
     const artifacts = await octokit.actions.listWorkflowRunArtifacts({
