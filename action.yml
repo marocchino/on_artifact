@@ -2,9 +2,6 @@ name: 'on_artifact'
 description: 'Optimized for workflow_run. Download artifact and set as output then clear it'
 author: 'marocchino'
 inputs:
-  GITHUB_TOKEN:
-    description: 'set secrets.GITHUB_TOKEN here.'
-    required: true
   name:
     description: 'artifact name.'
     required: true
@@ -12,8 +9,13 @@ inputs:
     description: 'path to unzip it. default is artifact name.'
     required: false
   run_id:
-    description: 'set github.event.workflow_run.id here.'
-    required: true
+    description: 'set workflow_run id, This defaults to {{ github.event.workflow_run.id }}'
+    default: '${{ github.event.workflow_run.id }}'
+    required: false
+  GITHUB_TOKEN:
+    description: 'The GitHub access token (e.g. secrets.GITHUB_TOKEN) used to create or update the comment. This defaults to {{ github.token }}.'
+    default: '${{ github.token }}'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'

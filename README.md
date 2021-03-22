@@ -56,11 +56,8 @@ jobs:
         uses: marocchino/on_artifact@v1
         with:
           name: all
-          run_id: ${{ github.event.workflow_run.id }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: All
           number: ${{ steps.artifact.outputs.number }}
           message: |
@@ -69,10 +66,6 @@ jobs:
             ```
 ```
 ## Inputs
-
-### `GITHUB_TOKEN`
-
-**Required** set secrets.GITHUB_TOKEN here
 
 ### `name`
 
@@ -84,11 +77,16 @@ jobs:
 
 ### `run_id`
 
-**Required** set github.event.workflow_run.id here.
+**Optional** set workflow_run id, This defaults to `${{ github.event.workflow_run.id }}`.
+
+
+### `GITHUB_TOKEN`
+
+**Optional**, typically set `secrets.GITHUB_TOKEN`. If not set, this will use `${{ github.token }}`.
 
 ## Outputs
 
-any valid file name is passable
+Any valid file name is passable.
 
 ## Any problem?
 

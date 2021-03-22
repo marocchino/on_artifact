@@ -20,11 +20,8 @@ jobs:
         uses: ./
         with:
           name: all
-          run_id: ${{ github.event.workflow_run.id }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: All
           number: ${{ steps.artifact.outputs.number }}
           message: |
