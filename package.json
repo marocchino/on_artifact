@@ -1,6 +1,6 @@
 {
   "name": "on_artifact",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Optimized for workflow_run. Download artifact and set as output then clear it",
   "main": "lib/main.js",
