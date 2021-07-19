@@ -11,7 +11,7 @@ async function run(): Promise<void> {
     const runId = Number(core.getInput('run_id', {required: true}))
     const octokit = getOctokit(token, {})
 
-    const artifacts = await octokit.actions.listWorkflowRunArtifacts({
+    const artifacts = await octokit.rest.actions.listWorkflowRunArtifacts({
       owner: context.repo.owner,
       repo: context.repo.repo,
       run_id: runId
@@ -19,7 +19,7 @@ async function run(): Promise<void> {
     const matchArtifact = artifacts.data.artifacts.filter(
       artifact => artifact.name === name
     )[0]
-    const download = await octokit.actions.downloadArtifact({
+    const download = await octokit.rest.actions.downloadArtifact({
       owner: context.repo.owner,
       repo: context.repo.repo,
       artifact_id: matchArtifact.id,
@@ -43,7 +43,7 @@ async function run(): Promise<void> {
     }
 
     // delete artifact
-    await octokit.actions.deleteArtifact({
+    await octokit.rest.actions.deleteArtifact({
       owner: context.repo.owner,
       repo: context.repo.repo,
       artifact_id: matchArtifact.id
