@@ -36,9 +36,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
+const fs = __importStar(__nccwpck_require__(5747));
 const github_1 = __nccwpck_require__(5438);
 const exec_1 = __nccwpck_require__(1514);
-const fs = __importStar(__nccwpck_require__(5747));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {

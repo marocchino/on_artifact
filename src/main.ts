@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
+import * as fs from 'fs'
 import {context, getOctokit} from '@actions/github'
 import {exec} from '@actions/exec'
-import * as fs from 'fs'
 
 async function run(): Promise<void> {
   try {
