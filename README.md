@@ -21,7 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - run: |
           npm install
       - run: |
@@ -30,7 +30,7 @@ jobs:
           echo ${{ github.event.number }} | tee ./pr/number
           # this file name `all_result` will be output variable name later
           npm run all | tee ./pr/all_result
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         if: github.event_name == 'pull_request'
         with:
           name: all
@@ -53,7 +53,7 @@ jobs:
     steps:
       - name: on artifact
         id: artifact
-        uses: marocchino/on_artifact@v1
+        uses: marocchino/on_artifact@v2
         with:
           name: all
       - uses: marocchino/sticky-pull-request-comment@v2
